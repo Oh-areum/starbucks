@@ -62,32 +62,42 @@ fadeEls.forEach(function(fadeEl, index){ //요소, 횟수
 
 // SWIPER
 // new Swiper(선택자, 옵션)
+// * 슬라이드 요소 관리 *
 new Swiper('.notice-line .swiper-container', {
-    direction : 'vertical',
-    // 수평으로 움직이게 하는것이 기본값
-    autoplay : true,
-    loop : true
-}); //생성자(클래스)
-
-new Swiper('.promotion .swiper-container',{
-    slidesPerView : 3, //한번에 보여줄 슬라이드 개수
-    spaceBetween : 10, //슬라이드 사이 간격 너비(px)
-    centeredSlides :true, //슬라이드 시작을 가운데로 지정
-    loop : true,
-    // autoplay : {
-    //     delay : 4000
-    // }
-    // autoplay의 값을 객체로 넣어 지속시간 설정가능
-
-    pagination : {
-        el: '.promotion .swiper-pagination', //페이지 번호 요소 선택자
-        clickable : true //사용자의 페이지 번호 요소 제어 가능 여부
-    },
-    navigation :{
-        prevEl : '.promotion .swiper-prev',
-        nextEl : '.promotion .swiper-next'
-    }
-});
+  direction: 'vertical', // 수직 슬라이드
+  autoplay: true, // 자동 재생 여부
+  loop: true // 반복 재생 여부
+})
+new Swiper('.promotion .swiper-container', {
+  // direction: 'horizontal', // 수평 슬라이드
+  autoplay: { // 자동 재생 여부
+    delay: 5000 // 5초마다 슬라이드 바뀜
+  },
+  loop: true, // 반복 재생 여부
+  slidesPerView: 3, // 한 번에 보여줄 슬라이드 개수
+  spaceBetween: 10, // 슬라이드 사이 여백
+  centeredSlides: true, // 1번 슬라이드가 가운데 보이기
+  pagination: { // 페이지 번호 사용 여부
+    el: '.promotion .swiper-pagination', // 페이지 번호 요소 선택자
+    clickable: true // 사용자의 페이지 번호 요소 제어 가능 여부
+  },
+  navigation: { // 슬라이드 이전/다음 버튼 사용 여부
+    prevEl: '.promotion .swiper-prev', // 이전 버튼 선택자
+    nextEl: '.promotion .swiper-next' // 다음 버튼 선택자
+  }
+})
+new Swiper('.awards .swiper-container', {
+  // direction: 'horizontal', // 수평 슬라이드
+  autoplay: true, // 자동 재생 여부
+  loop: true, // 반복 재생 여부
+  spaceBetween: 30, // 슬라이드 사이 여백
+  slidesPerView: 5, // 한 번에 보여줄 슬라이드 개수
+  // slidesPerGroup: 5, // 한 번에 슬라이드 할 개수(전체 개수로 나뉘어야 함)
+  navigation: { // 슬라이드 이전/다음 버튼 사용 여부
+    prevEl: '.awards .swiper-prev', // 이전 버튼 선택자
+    nextEl: '.awards .swiper-next' // 다음 버튼 선택자
+  }
+})
 
 
 
@@ -137,7 +147,7 @@ floatingObject('.floating3',1.5 ,20);
 
 
 // 1.starbucks 28. 16:00
-const spyEls = document.querySelectorAll('section.scroll-spy');
+const spyEls = document.querySelectorAll('section.scroll-spy')
 spyEls.forEach(function(spyEl){
     new ScrollMagic
         .Scene({
@@ -147,6 +157,12 @@ spyEls.forEach(function(spyEl){
             // 스크롤 하다가 어떤지점에서 어떠한 내용이 실행된다.
             // 이부분에서 setClassToggle()이 실행된다.
         })
-        .setClassToggle()
-        .addTo();
-};)
+        .setClassToggle(spyEl, 'show')
+        .addTo(new ScrollMagic.Controller())
+})
+
+/**
+ * 올해가 몇 년도인지 계산
+ */
+const thisYear = document.querySelector('.this-year')
+thisYear.textContent = new Date().getFullYear()
